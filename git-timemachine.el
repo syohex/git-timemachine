@@ -34,11 +34,8 @@
 ;;; Code:
 
 (defvar git-timemachine-directory nil)
-(make-variable-buffer-local 'git-timemachine-directory)
 (defvar git-timemachine-file nil)
-(make-variable-buffer-local 'git-timemachine-file)
 (defvar git-timemachine-revision nil)
-(make-variable-buffer-local 'git-timemachine-revision)
 
 (defun git-timemachine--revisions ()
  "List git revisions of current buffers file."
@@ -120,9 +117,9 @@
    (setq buffer-file-name relative-file)
    (set-auto-mode)
    (git-timemachine-mode)
-   (setq git-timemachine-directory git-directory
-         git-timemachine-file relative-file
-         git-timemachine-revision nil)
+   (set (make-local-variable 'git-timemachine-directory) git-directory)
+   (set (make-local-variable 'git-timemachine-file) relative-file)
+   (set (make-local-variable 'git-timemachine-revision) nil)
    (git-timemachine-show-current-revision)
    (switch-to-buffer timemachine-buffer))))
 
